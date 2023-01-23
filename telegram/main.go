@@ -19,7 +19,6 @@ func main() {
 	botToken := vp.GetString("Token")
 
 	fmt.Println(botToken)
-	////	https://api.telegram.org/bot<token>/METHOD_NAME
 	const host = "api.telegram.org"
 	offset := 0
 
