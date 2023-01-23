@@ -2,19 +2,28 @@ package main
 
 import (
 	"fmt"
+	"github.com/spf13/viper"
 	"log"
-	"webDevMcLeod/telegram/telegramClient"
+	"webDev/telegram/telegramClient"
 )
 
 func main() {
+	vp := viper.New()
+	vp.AddConfigPath("telegram")
+	vp.SetConfigType("env")
+	vp.SetConfigName("settings")
+	err := vp.ReadInConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+	botToken := vp.GetString("Token")
 
-	botToken := "5778811258:AAHw38nJ9hVVvnh1HslfuohwCQfic2UjOZ0"
-	//	https://api.telegram.org/bot<token>/METHOD_NAME
+	fmt.Println(botToken)
+	////	https://api.telegram.org/bot<token>/METHOD_NAME
 	const host = "api.telegram.org"
 	offset := 0
 
 	tgClient := telegramClient.New(host, botToken)
-
 	for {
 		updates, err := tgClient.Updates(offset)
 		if err != nil {
